@@ -20,14 +20,17 @@ namespace Authorization.Controllers
         }
 
         // GET: api/Default/5
+       [AllowAnonymous]
         public  string Get(int id)
         {
             return  "value";
         }
                 
         // POST: api/Default
-        public void Post([FromBody]string value)
+        [Authorize(Roles = "Admin, Supervisor")]
+       public CustomModel Post([FromBody]CustomModel model)
         {
+            return model;
         }
 
         // PUT: api/Default/5
@@ -39,5 +42,10 @@ namespace Authorization.Controllers
         public void Delete(int id)
         {
         }
+    }
+
+    public class CustomModel
+    {
+        public string Name { get; set; }
     }
 }
